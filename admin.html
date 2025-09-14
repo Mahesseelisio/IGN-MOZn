@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — Mock Publish</title></head>
+<body>
+<div style="max-width:900px;margin:20px auto;padding:0 16px">
+<h1>Publicar artigo (Mock)</h1>
+<form id="f">
+<input id="title" placeholder="Título" style="width:100%;padding:8px;margin-bottom:8px"><input id="author" placeholder="Autor" style="width:100%;padding:8px;margin-bottom:8px"><input id="img" placeholder="URL imagem" style="width:100%;padding:8px;margin-bottom:8px"><textarea id="content" placeholder="Conteúdo HTML" style="width:100%;height:120px;padding:8px"></textarea><button type="submit">Publicar (no localStorage)</button>
+</form>
+<div id="msg" style="margin-top:12px;color:green"></div>
+</div>
+<script>
+document.getElementById('f').addEventListener('submit', async function(e){e.preventDefault();
+ const title=document.getElementById('title').value.trim(); const author=document.getElementById('author').value.trim()||'IGN Moz';
+ const img=document.getElementById('img').value.trim()||'https://picsum.photos/800/400';
+ const content=document.getElementById('content').value.trim()||'<p>Sem conteúdo</p>';
+ const res = await fetch('articles.json'); const list = await res.json();
+ const id = 'article-' + (list.length+1);
+ const art = {id,title,author,img,excerpt:content.replace(/<[^>]+>/g,' ').slice(0,150),content,badge:''};
+ list.unshift(art);
+ localStorage.setItem('ign_articles', JSON.stringify(list));
+ document.getElementById('msg').innerText = 'Artigo publicado no seu navegador (localStorage). Para publicar definitivamente, envie-me o JSON e eu atualizo o arquivo server-side.';
+});
+</script>
+</body>
+</html>

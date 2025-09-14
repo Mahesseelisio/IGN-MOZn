@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IGN Moz — Início</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+body{font-family:Roboto,Arial, sans-serif;margin:0;background:#f5f5f5;color:#222}
+.container{max-width:1100px;margin:20px auto;padding:0 16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.card img{width:100%;height:160px;object-fit:cover;display:block}
+.card .content{padding:12px}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="header-placeholder"></div>
+
+<main class="container" id="main">
+  <section class="hero" style="background:linear-gradient(180deg,#8b0000,#000);color:#fff;padding:36px;border-radius:8px;text-align:center">
+    <h1>Bem-vindo ao IGN Moz</h1>
+    <p>Portal de games, tecnologia e entretenimento — versão com templates e API mock.</p>
+  </section>
+
+  <h2 style="color:#ff0000;margin-top:18px">Destaques</h2>
+  <div id="articles" class="grid"></div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+async function loadTemplate(selector, file){
+  const res = await fetch(file);
+  const html = await res.text();
+  document.querySelector(selector).innerHTML = html;
+}
+loadTemplate('#header-placeholder','header.html');
+loadTemplate('#footer-placeholder','footer.html');
+
+async function loadArticles(){
+  const res = await fetch('articles.json');
+  const list = await res.json();
+  const container = document.getElementById('articles');
+  container.innerHTML = '';
+  list.forEach(function(a){
+    var card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = '<img src="'+a.img+'" alt="'+a.title+'"><div class="content"><h3 style="margin:0;font-size:16px">'+a.title+'</h3><p style="color:#666;font-size:14px">'+a.excerpt+'</p><small>Por '+a.author+'</small><div style="margin-top:8px"><a href="article.html?id='+a.id+'">Ler mais</a></div></div>';
+    container.appendChild(card);
+  });
+}
+loadArticles();
+</script>
+</body>
+</html>

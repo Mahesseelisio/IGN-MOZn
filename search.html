@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pesquisar — IGN Moz</title></head>
+<body>
+<div id="header-placeholder"></div>
+<main style="max-width:900px;margin:20px auto;padding:0 16px">
+  <h1>Pesquisar</h1>
+  <input id="q" placeholder="Pesquisar..." style="padding:10px;width:100%;box-sizing:border-box">
+  <div id="results" style="margin-top:12px"></div>
+</main>
+<div id="footer-placeholder"></div>
+<script>
+async function load(){ await fetch('header.html').then(r=>r.text()).then(t=>document.getElementById('header-placeholder').innerHTML=t);
+ await fetch('footer.html').then(r=>r.text()).then(t=>document.getElementById('footer-placeholder').innerHTML=t);
+ const res = await fetch('articles.json'); window.articles = await res.json();
+ document.getElementById('q').addEventListener('input', function(){ const q=this.value.toLowerCase().trim(); const out=document.getElementById('results'); out.innerHTML=''; if(!q) return; const matches = window.articles.filter(a=>a.title.toLowerCase().includes(q)||a.excerpt.toLowerCase().includes(q)||a.author.toLowerCase().includes(q)); matches.forEach(function(m){ const div=document.createElement('div'); div.innerHTML='<h3>'+m.title+'</h3><p>'+m.excerpt+'</p><a href="article.html?id='+m.id+'">Ler</a>'; out.appendChild(div); }); });
+}
+load();
+</script>
+</body>
+</html>

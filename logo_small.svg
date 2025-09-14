@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="36" viewBox="0 0 120 36">
+  <rect width="120" height="36" fill="#000" rx="6"/>
+  <text x="8" y="26" font-family="Roboto, Arial" font-weight="900" font-size="18" fill="#ff0000">IGN</text>
+  <text x="60" y="26" font-family="Roboto, Arial" font-weight="700" font-size="12" fill="#fff">Moz</text>
+</svg>

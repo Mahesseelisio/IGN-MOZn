@@ -1,0 +1,1 @@
+Substitua 'G-XXXXXXX' nas páginas estáticas pelo seu Measurement ID do Google Analytics 4.
